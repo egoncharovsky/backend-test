@@ -1,9 +1,13 @@
 package ru.egoncharovsky.revolut.backendtest
 
+import java.lang.IllegalArgumentException
 import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.atomic.AtomicLong
+import kotlin.reflect.KClass
 
-open class SimpleRepository<Entity : ru.egoncharovsky.revolut.backendtest.Entity> : Repository<Entity> {
+abstract class SimpleRepository<Entity : ru.egoncharovsky.revolut.backendtest.Entity>(
+        private val entityClass: KClass<Entity>
+) : Repository<Entity> {
 
     private val lastId: AtomicLong = AtomicLong()
     private val entities: MutableMap<Long, Entity> = ConcurrentHashMap()
@@ -20,7 +24,8 @@ open class SimpleRepository<Entity : ru.egoncharovsky.revolut.backendtest.Entity
         return entity
     }
 
-    override fun get(id: Long): Entity? = entities[id]
+    override fun get(id: Long): Entity =
+            entities[id] ?: throw IllegalArgumentException("$entityClass with id $id does not exist")
 
     override fun delete(id: Long) {
         entities.remove(id)

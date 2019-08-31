@@ -6,5 +6,10 @@ import java.math.BigDecimal
 data class Account(
         override var id: Long?,
 
-        val balance: BigDecimal
-) : Entity
+        var balance: BigDecimal
+) : Entity {
+
+    init {
+        require(balance >= BigDecimal.ZERO) { "Balance can't be negative" }
+    }
+}
