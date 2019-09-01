@@ -1,6 +1,5 @@
 package ru.egoncharovsky.revolut.backendtest
 
-import java.lang.IllegalArgumentException
 import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.atomic.AtomicLong
 import kotlin.reflect.KClass
@@ -26,6 +25,8 @@ abstract class SimpleRepository<Entity : ru.egoncharovsky.revolut.backendtest.En
 
     override fun get(id: Long): Entity =
             entities[id] ?: throw IllegalArgumentException("$entityClass with id $id does not exist")
+
+    override fun find(id: Long): Entity? = entities[id]
 
     override fun delete(id: Long) {
         entities.remove(id)
