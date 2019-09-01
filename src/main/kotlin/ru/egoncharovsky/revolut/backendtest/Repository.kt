@@ -9,4 +9,6 @@ interface Repository<Entity : ru.egoncharovsky.revolut.backendtest.Entity> {
     fun getAll(): Collection<Entity>
 
     fun delete(id: Long)
+
+    fun deleteAll()
 }

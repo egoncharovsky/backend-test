@@ -32,4 +32,6 @@ abstract class SimpleRepository<Entity : ru.egoncharovsky.revolut.backendtest.En
     }
 
     override fun getAll(): Collection<Entity> = entities.values
+
+    override fun deleteAll() = entities.clear()
 }
