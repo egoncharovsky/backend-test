@@ -11,9 +11,8 @@ abstract class CrudController<Entity : ru.egoncharovsky.revolut.backendtest.Enti
 
     @PutMapping("/{id}")
     fun update(@PathVariable id: Long, @RequestBody entity: Entity): Entity {
-        require(repository.find(id) != null) {
-            "Id $id is not existed"
-        }
+        require(repository.find(id) != null) { "Id $id is not existed" }
+        require(id == entity.id) { "Entity id ${entity.id} doesn't corresponds to $id" }
         return repository.save(entity)
     }
 
