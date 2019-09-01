@@ -1,5 +1,6 @@
 package ru.egoncharovsky.revolut.backendtest.transaction
 
+import io.swagger.annotations.ApiOperation
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.*
 import java.math.BigDecimal
@@ -11,6 +12,7 @@ class TransactionController(
 ) {
 
     @PostMapping("/transfer-money/{fromAccountId}/{toAccountId}")
+    @ApiOperation("Transfers money between accounts")
     fun transferMoney(
             @PathVariable fromAccountId: Long,
             @PathVariable toAccountId: Long,
