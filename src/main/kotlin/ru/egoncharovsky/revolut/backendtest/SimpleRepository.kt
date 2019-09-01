@@ -30,4 +30,6 @@ abstract class SimpleRepository<Entity : ru.egoncharovsky.revolut.backendtest.En
     override fun delete(id: Long) {
         entities.remove(id)
     }
+
+    override fun getAll(): Collection<Entity> = entities.values
 }
