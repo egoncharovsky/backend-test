@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RestController
 import java.math.BigDecimal
 
 @RestController
-@RequestMapping("/transaction")
+@RequestMapping("/backend-test/transaction")
 class TransactionController(
         @Autowired private val transactionService: TransactionService
 ) {

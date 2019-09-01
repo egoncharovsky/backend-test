@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RestController
 import ru.egoncharovsky.revolut.backendtest.CrudController
 
 @RestController
-@RequestMapping("/account")
+@RequestMapping("/backend-test/account")
 class AccountController(
         @Autowired private val accountRepository: AccountRepository
 ) : CrudController<Account>(accountRepository)

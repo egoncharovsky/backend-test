@@ -8,7 +8,7 @@ abstract class SimpleRepository<Entity : ru.egoncharovsky.revolut.backendtest.En
         private val entityClass: KClass<Entity>
 ) : Repository<Entity> {
 
-    private val lastId: AtomicLong = AtomicLong()
+    private val lastId: AtomicLong = AtomicLong(1)
     private val entities: MutableMap<Long, Entity> = ConcurrentHashMap()
 
     override fun save(entity: Entity): Entity {
