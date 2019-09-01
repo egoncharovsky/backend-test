@@ -4,6 +4,7 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
+import org.springframework.test.annotation.Repeat
 import org.springframework.test.context.junit4.SpringRunner
 import ru.egoncharovsky.revolut.backendtest.Repository
 import ru.egoncharovsky.revolut.backendtest.account.Account
@@ -24,6 +25,7 @@ class ConcurrentTransactionTest {
     lateinit var accountRepo: Repository<Account>
 
     @Test
+    @Repeat(10)
     fun `transferring money is threadsafe`() {
         val account1id = accountRepo.save(Account(null, 100.toBigDecimal())).id!!
         val account2id = accountRepo.save(Account(null, 100.toBigDecimal())).id!!
