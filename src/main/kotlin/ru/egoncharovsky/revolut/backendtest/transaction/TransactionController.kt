@@ -1,9 +1,7 @@
 package ru.egoncharovsky.revolut.backendtest.transaction
 
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 import java.math.BigDecimal
 
 @RestController
@@ -12,14 +10,13 @@ class TransactionController(
         @Autowired private val transactionService: TransactionService
 ) {
 
-    @PostMapping("/transfer-money")
-    fun transferMoney(transfer: TransferMoneyDto) {
-        transactionService.transferMoney(transfer.fromAccountId, transfer.toAccountId, transfer.amount)
+    @PostMapping("/transfer-money/{fromAccountId}/{toAccountId}")
+    fun transferMoney(
+            @PathVariable fromAccountId: Long,
+            @PathVariable toAccountId: Long,
+            @RequestBody amount: BigDecimal
+    ): String {
+        transactionService.transferMoney(fromAccountId, toAccountId, amount)
+        return "Successful!"
     }
-
-    data class TransferMoneyDto(
-            val fromAccountId: Long,
-            val toAccountId: Long,
-            val amount: BigDecimal
-    )
 }
