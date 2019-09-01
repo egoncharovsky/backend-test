@@ -6,7 +6,8 @@ Simple application for transferring money between accounts.
 Tests
 ---
 
-Postman tests are saved to `./postman-test`. To start the Postman is required.
+1. JUnit tests are in default directory
+2. Postman tests are saved to `./postman-test`. To start the Postman is required.
 
 Documentation
 ---
