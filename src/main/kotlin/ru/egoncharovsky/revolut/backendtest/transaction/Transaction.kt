@@ -10,7 +10,7 @@ data class Transaction(
         val from: Account,
         val to: Account,
         val amount: BigDecimal,
-        val timestamp: LocalDateTime?
+        var timestamp: LocalDateTime?
 ) : Entity {
 
     init {
@@ -19,10 +19,12 @@ data class Transaction(
         }
     }
 
-    fun perform(): Transaction = copy(
-            from = from.copy(balance = from.balance - amount),
-            to = to.copy(balance = to.balance + amount),
-            timestamp = LocalDateTime.now()
-    )
+    fun perform(): Transaction {
+        from.balance -= amount
+        to.balance += amount
+        timestamp = LocalDateTime.now()
+        return this
+    }
 
+    fun isExecuted(): Boolean = timestamp != null
 }

@@ -4,12 +4,15 @@ import ru.egoncharovsky.revolut.backendtest.Entity
 import java.math.BigDecimal
 
 data class Account(
-        override var id: Long?,
-
-        val balance: BigDecimal
+        override var id: Long?
 ) : Entity {
-
-    init {
-        require(balance >= BigDecimal.ZERO) { "Balance can't be negative (account id $id)" }
+    constructor(id: Long?, balance: BigDecimal) : this(id) {
+        this.balance = balance
     }
+
+    var balance: BigDecimal = BigDecimal.ZERO
+        set(value) {
+            require(value >= BigDecimal.ZERO) { "Balance can't be negative (account id $id)" }
+            field = value
+        }
 }
