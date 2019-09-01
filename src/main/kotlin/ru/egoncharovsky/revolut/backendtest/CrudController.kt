@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.*
 
 abstract class CrudController<Entity : ru.egoncharovsky.revolut.backendtest.Entity>(
         private val repository: Repository<Entity>
-) {
+) : ReadController<Entity>(repository) {
 
     @PostMapping
     @ApiOperation("Create new entity")
@@ -26,12 +26,4 @@ abstract class CrudController<Entity : ru.egoncharovsky.revolut.backendtest.Enti
     @DeleteMapping
     @ApiOperation("Delete all entities")
     fun deleteAll() = repository.deleteAll()
-
-    @GetMapping("/{id}")
-    @ApiOperation("Get entity by id")
-    fun get(@PathVariable id: Long): Entity = repository.get(id)
-
-    @GetMapping
-    @ApiOperation("Get all entities")
-    fun getAll(): Collection<Entity> = repository.getAll()
 }

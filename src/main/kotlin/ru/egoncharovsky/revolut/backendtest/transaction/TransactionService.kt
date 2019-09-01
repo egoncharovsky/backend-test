@@ -12,8 +12,8 @@ class TransactionService(
         @Autowired private val transactionRepository: Repository<Transaction>
 ) {
 
-    fun transferMoney(accountFromId: Long, accountToId: Long, amount: BigDecimal) {
-        require(accountFromId != accountToId) {"From and to account must be different"}
+    fun transferMoney(accountFromId: Long, accountToId: Long, amount: BigDecimal): Transaction {
+        require(accountFromId != accountToId) { "From and to account must be different" }
 
         val from = accountRepository.get(accountFromId)
         val to = accountRepository.get(accountToId)
@@ -29,23 +29,23 @@ class TransactionService(
         if (accountFromId < accountToId) {
             synchronized(from) {
                 synchronized(to) {
-                    performTransfer(transaction)
+                    return performTransfer(transaction)
                 }
             }
         } else {
             synchronized(to) {
                 synchronized(from) {
-                    performTransfer(transaction)
+                    return performTransfer(transaction)
                 }
             }
         }
     }
 
-    private fun performTransfer(transaction: Transaction) {
+    private fun performTransfer(transaction: Transaction): Transaction {
         val performed = transaction.perform()
 
         accountRepository.save(performed.from)
         accountRepository.save(performed.to)
-        transactionRepository.save(transaction)
+        return transactionRepository.save(transaction)
     }
 }
