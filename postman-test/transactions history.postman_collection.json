@@ -1,0 +1,361 @@
+{
+	"info": {
+		"_postman_id": "18f90707-a051-4ff9-851d-7a8a36df0b38",
+		"name": "transactions history",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "create Account 1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e277e3b1-9ed4-4f32-8016-29e0fe4f7c82",
+						"exec": [
+							"pm.test(\"Status code is 200\", function() {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"const jsonData = pm.response.json();",
+							"pm.globals.set(\"accountId1\", jsonData.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"id\": null,\n\t\"balance\": 8\n}\n"
+				},
+				"url": {
+					"raw": "http://localhost:8080/backend-test/account",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"backend-test",
+						"account"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create Account 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e277e3b1-9ed4-4f32-8016-29e0fe4f7c82",
+						"exec": [
+							"pm.test(\"Status code is 200\", function() {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"const jsonData = pm.response.json();",
+							"pm.globals.set(\"accountId2\", jsonData.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"id\": null,\n\t\"balance\": 20\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/backend-test/account",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"backend-test",
+						"account"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "transfer 1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e277e3b1-9ed4-4f32-8016-29e0fe4f7c82",
+						"exec": [
+							"7"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "7"
+				},
+				"url": {
+					"raw": "http://localhost:8080/backend-test/transaction/transfer-money/{{accountId2}}/{{accountId1}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"backend-test",
+						"transaction",
+						"transfer-money",
+						"{{accountId2}}",
+						"{{accountId1}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "transfer 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e277e3b1-9ed4-4f32-8016-29e0fe4f7c82",
+						"exec": [
+							"7"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "5.13"
+				},
+				"url": {
+					"raw": "http://localhost:8080/backend-test/transaction/transfer-money/{{accountId2}}/{{accountId1}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"backend-test",
+						"transaction",
+						"transfer-money",
+						"{{accountId2}}",
+						"{{accountId1}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "transfer 3",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e277e3b1-9ed4-4f32-8016-29e0fe4f7c82",
+						"exec": [
+							"7"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "0.2"
+				},
+				"url": {
+					"raw": "http://localhost:8080/backend-test/transaction/transfer-money/{{accountId1}}/{{accountId2}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"backend-test",
+						"transaction",
+						"transfer-money",
+						"{{accountId1}}",
+						"{{accountId2}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "history account 1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2e646f7c-280f-4678-90eb-3f63626fb371",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/backend-test/transaction/history/{{accountId1}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"backend-test",
+						"transaction",
+						"history",
+						"{{accountId1}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "history account 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2e646f7c-280f-4678-90eb-3f63626fb371",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/backend-test/transaction/history/{{accountId2}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"backend-test",
+						"transaction",
+						"history",
+						"{{accountId2}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get all",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2afb6397-5d88-46ed-9e33-62b86f7cfdff",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/backend-test/transaction",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"backend-test",
+						"transaction"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

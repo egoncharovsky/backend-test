@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.*
 import ru.egoncharovsky.revolut.backendtest.ReadController
 import java.math.BigDecimal
+import java.time.LocalDateTime
 
 @RestController
 @RequestMapping("/transaction")
@@ -24,11 +25,40 @@ class TransactionController(
     }
 
     @GetMapping("/history/{accountId}")
-    @ApiOperation("View all transfers in which this account participated",
+    @ApiOperation("View all balance changes for account",
             responseContainer = "Collection",
-            response = Transaction::class)
-    fun getOperationsHistory(@RequestBody accountId: Long): Collection<Transaction> {
+            response = AccountOperation::class)
+    fun getOperationsHistory(@PathVariable accountId: Long): Collection<AccountOperation> {
         require(transactionRepository.find(accountId) != null) { "Account with id $accountId doesn't exist" }
-        return transactionRepository.findByAccount(accountId)
+        return transactionRepository.findByAccount(accountId).map {
+            AccountOperation.fromTransaction(accountId, it)
+        }
+    }
+
+    data class AccountOperation(
+            val transactionId: Long,
+            val balanceChange: BigDecimal,
+            val secondAccount: Long,
+            var timestamp: LocalDateTime
+    ) {
+        companion object {
+            fun fromTransaction(accountId: Long, transaction: Transaction): AccountOperation = when (accountId) {
+                transaction.from.id -> AccountOperation(
+                        transaction.id!!,
+                        -transaction.amount,
+                        transaction.to.id!!,
+                        transaction.timestamp!!
+                )
+                transaction.to.id -> AccountOperation(
+                        transaction.id!!,
+                        transaction.amount,
+                        transaction.from.id!!,
+                        transaction.timestamp!!
+                )
+                else -> throw IllegalArgumentException(
+                        "Transaction ${transaction.id} had not operate with account $accountId"
+                )
+            }
+        }
     }
 }
