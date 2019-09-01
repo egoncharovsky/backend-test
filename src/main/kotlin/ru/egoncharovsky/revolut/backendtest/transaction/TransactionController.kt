@@ -15,8 +15,7 @@ class TransactionController(
             @PathVariable fromAccountId: Long,
             @PathVariable toAccountId: Long,
             @RequestBody amount: BigDecimal
-    ): String {
+    ) {
         transactionService.transferMoney(fromAccountId, toAccountId, amount)
-        return "Successful!"
     }
 }
